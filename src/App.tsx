@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { View } from 'react-native';
+import BootSplash from 'react-native-bootsplash';
 import { MD3LightTheme, PaperProvider } from 'react-native-paper';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { DefaultTheme } from '@react-navigation/native';
@@ -42,7 +43,7 @@ export const App = () => {
       // we hide the splash screen once we know the root view has already
       // performed layout
       setTimeout(async () => {
-        // Hide splash screen logic here,
+        await BootSplash.hide({ fade: true });
       }, 1000);
     }
   }, [appIsReady]);
