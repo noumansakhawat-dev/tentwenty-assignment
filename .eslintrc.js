@@ -1,6 +1,6 @@
 module.exports = {
   env: {
-    es6: true,
+    es6: true
   },
   extends: [
     'eslint:recommended',
@@ -9,21 +9,15 @@ module.exports = {
     'plugin:@typescript-eslint/recommended',
     'plugin:@typescript-eslint/recommended-requiring-type-checking',
     'prettier',
-    'plugin:consistent-default-export-name/fixed',
+    'plugin:consistent-default-export-name/fixed'
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
     project: 'tsconfig.json',
     tsconfigRootDir: __dirname,
-    sourceType: 'module',
+    sourceType: 'module'
   },
-  plugins: [
-    'react',
-    'react-native',
-    '@typescript-eslint',
-    'react-hooks',
-    'simple-import-sort',
-  ],
+  plugins: ['react', 'react-native', '@typescript-eslint', 'react-hooks', 'simple-import-sort'],
   rules: {
     'no-unused-vars': ['error', { argsIgnorePattern: 'params', args: 'none' }],
     '@typescript-eslint/no-unused-vars': 'off',
@@ -63,17 +57,17 @@ module.exports = {
             '^\\./?$',
             // Style imports.
 
-            '^.+\\.s?css$',
+            '^.+\\.s?css$'
           ],
           [
             // Sort types as seperate group
             '^@?\\w.*\\u0000$',
-            '^(@|@theo|@theo-tech|@ui|components|utils|config|vendored-lib)(/.*|$)',
+            '^(@|@tentwenty|@tentwenty-tech|@theme|@ui|components|utils|config|vendored-lib)(/.*|$)',
             '^[^.].*\\u0000$',
-            '^\\..*\\u0000$',
-          ],
-        ],
-      },
+            '^\\..*\\u0000$'
+          ]
+        ]
+      }
     ],
     'consistent-default-export-name/default-export-match-filename': 'warn',
     'consistent-default-export-name/default-import-match-filename': 'off',
@@ -111,19 +105,19 @@ module.exports = {
     'no-empty-pattern': 'off', // unexpected empty object
     'no-prototype-builtins': 'off', // this can be dangerous,
     'react-hooks/exhaustive-deps': 'off',
-    'linebreak-style': ['error', 'unix'], // En
+    'linebreak-style': ['error', 'unix'] // En
   },
   settings: {
     react: {
-      version: 'detect',
-    },
+      version: 'detect'
+    }
   },
   overrides: [
     {
       files: ['./**/*.test.ts'],
       rules: {
-        '@typescript-eslint/naming-convention': ['off'],
-      },
-    },
-  ],
+        '@typescript-eslint/naming-convention': ['off']
+      }
+    }
+  ]
 };
