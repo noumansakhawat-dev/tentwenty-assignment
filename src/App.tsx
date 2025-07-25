@@ -5,6 +5,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { DefaultTheme } from '@react-navigation/native';
 import { TabNavigator } from './navigation/tabNavigator';
 import { NavigationContainer } from './navigation';
+import BootSplash from 'react-native-bootsplash';
 
 const navTheme = {
   ...DefaultTheme,
@@ -42,7 +43,7 @@ export const App = () => {
       // we hide the splash screen once we know the root view has already
       // performed layout
       setTimeout(async () => {
-        // Hide splash screen logic here,
+        await BootSplash.hide({ fade: true });
       }, 1000);
     }
   }, [appIsReady]);
