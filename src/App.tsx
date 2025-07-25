@@ -8,6 +8,8 @@ import { PaperFontConfig } from './config/fonts';
 import { TabNavigator } from './navigation/tabNavigator';
 import { NavigationContainer } from './navigation';
 
+import { useTheme } from '@tentwenty-tech/theme';
+
 const navTheme = {
   ...DefaultTheme,
   colors: {
@@ -19,14 +21,13 @@ const navTheme = {
 const paperTheme = {
   ...MD3LightTheme,
   colors: {
-    ...MD3LightTheme.colors,
-    primary: '#0297A2',
-    secondary: 'rgba(2, 151, 162, 0.7)'
+    ...MD3LightTheme.colors
   },
   fonts: configureFonts({ config: PaperFontConfig, isV3: true })
 };
 
 export const App = () => {
+  const theme = useTheme();
   const [appIsReady, setAppIsReady] = useState(false);
 
   useEffect(() => {
@@ -51,7 +52,7 @@ export const App = () => {
   }, [appIsReady]);
 
   return (
-    <PaperProvider theme={paperTheme}>
+    <PaperProvider theme={{ ...paperTheme, colors: { ...paperTheme.colors, primary: theme.colors.primary } }}>
       <View style={{ flex: 1, backgroundColor: '#fff' }} onLayout={onLayoutRootView}>
         <SafeAreaProvider>
           <NavigationContainer theme={navTheme}>
