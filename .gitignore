@@ -96,8 +96,5 @@ src/**/*.typegen.ts
 
 *.code-workspace
 
-
-# Nix-related
-.pre-commit-config.yaml
-.data/
-.direnv/
+!.husky/pre-commit
+!.husky/_/*
