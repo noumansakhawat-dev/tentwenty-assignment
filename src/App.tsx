@@ -1,9 +1,10 @@
 import { useCallback, useEffect, useState } from 'react';
 import { View } from 'react-native';
 import BootSplash from 'react-native-bootsplash';
-import { MD3LightTheme, PaperProvider } from 'react-native-paper';
+import { configureFonts, MD3LightTheme, PaperProvider } from 'react-native-paper';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { DefaultTheme } from '@react-navigation/native';
+import { PaperFontConfig } from './config/fonts';
 import { TabNavigator } from './navigation/tabNavigator';
 import { NavigationContainer } from './navigation';
 
@@ -21,7 +22,8 @@ const paperTheme = {
     ...MD3LightTheme.colors,
     primary: '#0297A2',
     secondary: 'rgba(2, 151, 162, 0.7)'
-  }
+  },
+  fonts: configureFonts({ config: PaperFontConfig, isV3: true })
 };
 
 export const App = () => {
