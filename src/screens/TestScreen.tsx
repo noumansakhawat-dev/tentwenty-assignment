@@ -6,7 +6,15 @@ type TestScreenProps = {};
 export const TestScreen: FC<TestScreenProps> = ({}) => {
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Test Screen</Text>
+      <Text
+        style={
+          {
+            // fontFamily: 'Poppins-ExtraBold'
+          }
+        }
+        variant='displayMedium'>
+        Test Screen
+      </Text>
     </View>
   );
 };
