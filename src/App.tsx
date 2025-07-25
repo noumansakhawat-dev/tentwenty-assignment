@@ -1,28 +1,61 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
+import { useCallback, useEffect, useState } from 'react';
+import { View } from 'react-native';
+import { MD3LightTheme, PaperProvider } from 'react-native-paper';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { DefaultTheme } from '@react-navigation/native';
+import { TabNavigator } from './navigation/tabNavigator';
+import { NavigationContainer } from './navigation';
 
-import { StatusBar, StyleSheet, useColorScheme, View } from 'react-native';
-import { NewAppScreen } from '@react-native/new-app-screen';
+const navTheme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    background: 'transparent'
+  }
+};
 
-function App() {
-  const isDarkMode = useColorScheme() === 'dark';
+const paperTheme = {
+  ...MD3LightTheme,
+  colors: {
+    ...MD3LightTheme.colors,
+    primary: '#0297A2',
+    secondary: 'rgba(2, 151, 162, 0.7)'
+  }
+};
+
+export const App = () => {
+  const [appIsReady, setAppIsReady] = useState(false);
+
+  useEffect(() => {
+    const prepare = () => {
+      setAppIsReady(true);
+    };
+
+    prepare();
+  }, []);
+
+  const onLayoutRootView = useCallback(async () => {
+    if (appIsReady) {
+      // This tells the splash screen to hide immediately! If we call this after
+      // `setAppIsReady`, then we may see a blank screen while the app is
+      // loading its initial state and rendering its first pixels. So instead,
+      // we hide the splash screen once we know the root view has already
+      // performed layout
+      setTimeout(async () => {
+        // Hide splash screen logic here,
+      }, 1000);
+    }
+  }, [appIsReady]);
 
   return (
-    <View style={styles.container}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <NewAppScreen templateFileName='App.tsx' />
-    </View>
+    <PaperProvider theme={paperTheme}>
+      <View style={{ flex: 1, backgroundColor: '#fff' }} onLayout={onLayoutRootView}>
+        <SafeAreaProvider>
+          <NavigationContainer theme={navTheme}>
+            <TabNavigator />
+          </NavigationContainer>
+        </SafeAreaProvider>
+      </View>
+    </PaperProvider>
   );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1
-  }
-});
-
-export default App;
+};
