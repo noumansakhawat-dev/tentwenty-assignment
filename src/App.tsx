@@ -13,8 +13,7 @@ const navTheme = {
   colors: {
     ...DefaultTheme.colors,
     background: 'transparent'
-  },
-  fonts: configureFonts({ config: PaperFontConfig, isV3: false })
+  }
 };
 
 const paperTheme = {
@@ -23,7 +22,8 @@ const paperTheme = {
     ...MD3LightTheme.colors,
     primary: '#0297A2',
     secondary: 'rgba(2, 151, 162, 0.7)'
-  }
+  },
+  fonts: configureFonts({ config: PaperFontConfig, isV3: true })
 };
 
 export const App = () => {
