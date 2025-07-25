@@ -1,11 +1,11 @@
 import { useCallback, useEffect, useState } from 'react';
 import { View } from 'react-native';
+import BootSplash from 'react-native-bootsplash';
 import { MD3LightTheme, PaperProvider } from 'react-native-paper';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { DefaultTheme } from '@react-navigation/native';
 import { TabNavigator } from './navigation/tabNavigator';
 import { NavigationContainer } from './navigation';
-import BootSplash from 'react-native-bootsplash';
 
 const navTheme = {
   ...DefaultTheme,
