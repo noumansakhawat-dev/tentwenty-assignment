@@ -3,15 +3,18 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "android": "react-native run-android",
-    "ios": "react-native run-ios",
+    "start": "npx react-native start",
+    "start:android": "npx react-native run-android",
+    "start:ios": "npx react-native run-ios",
+    "clean-install": "xcrun -sdk iphoneos -find xcodebuild && rm -rf ios/build && rm -rf node_modules && yarn cache clean && rm -rf yarn.lock && rm -rf package-lock.json && rm -rf yarn-error.log && cd ios && xcodebuild clean && rm -rf Pods && rm -rf Podfile.lock && cd .. && rm -rf ~/Library/Developer/Xcode/DerivedData && git clean -xfd",
     "lint": "eslint .",
-    "start": "react-native start",
     "test": "jest",
     "prepare": "husky",
     "eslint": "node_modules/eslint/bin/eslint.js -c .eslintrc.js --ext .ts,tsx src --max-warnings=0",
     "fix": "node_modules/eslint/bin/eslint.js --fix -c .eslintrc.js --ext .ts,tsx src",
-    "lint-format": "chmod +x ./scripts/lint-format.sh && ./scripts/lint-format.sh"
+    "lint-format": "chmod +x ./scripts/lint-format.sh && ./scripts/lint-format.sh",
+    "prettify": "prettier . --write --ignore-unknown",
+    "xcode": "cd ios && open tentwenty_assignment.xcworkspace && cd .."
   },
   "dependencies": {
     "@react-native/new-app-screen": "0.80.2",
