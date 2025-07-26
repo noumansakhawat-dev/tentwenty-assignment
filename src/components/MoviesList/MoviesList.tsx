@@ -1,10 +1,12 @@
 import { FC } from 'react';
 import { FlatList, StyleProp, View, ViewStyle } from 'react-native';
 import { ActivityIndicator, Text } from 'react-native-paper';
+import { NavigationProp, useNavigation } from '@react-navigation/native';
 import { MovieCard } from './components/MovieCard';
 
 import { useTheme } from '@tentwenty-tech/theme';
 
+import { WatchStackParamList } from '~/navigation/stack';
 import { IUpcomingMovies } from '~/screens/Watch';
 
 type MoviesListProps = {
@@ -26,6 +28,7 @@ export const MoviesList: FC<MoviesListProps> = ({
   numberOfLines
 }) => {
   const theme = useTheme();
+  const navigation = useNavigation<NavigationProp<WatchStackParamList>>();
 
   if (isLoading && data.length === 0) {
     return (
@@ -52,6 +55,11 @@ export const MoviesList: FC<MoviesListProps> = ({
             style
           ]}
           numberOfLines={numberOfLines}
+          onPress={() => {
+            navigation.navigate('WatchMovieDetailScreen', {
+              movie: item
+            });
+          }}
         />
       )}
       maxToRenderPerBatch={20}
