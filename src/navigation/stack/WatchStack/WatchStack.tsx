@@ -6,6 +6,7 @@ import {
   VideoPlayerScreen,
   WatchDashboardScreen,
   WatchMovieDetailScreen,
+  WatchReserveSeatScreen,
   WatchSearchScreen,
   WatchSelectDateTimeScreen
 } from '~/screens/Watch';
@@ -42,6 +43,13 @@ export const WatchStack = () => {
       <Stack.Screen
         name='WatchSelectDateTimeScreen'
         component={WatchSelectDateTimeScreen}
+        options={{
+          headerShown: false
+        }}
+      />
+      <Stack.Screen
+        name='WatchReserveSeatScreen'
+        component={WatchReserveSeatScreen}
         options={{
           headerShown: false
         }}
