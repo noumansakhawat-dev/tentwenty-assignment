@@ -4,12 +4,17 @@ import { Text } from 'react-native-paper';
 import { enableScreens } from 'react-native-screens';
 import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
 import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
+import { WatchStackParamList } from '../stack';
 
 import { IconDashboard, IconMediaLibrary, IconMore, IconWatch } from '@tentwenty-tech/icons';
 
 import { useTheme } from '~/hooks/useTheme';
 
-const hideTabBarRoutes = ['WatchMovieDetailScreen', 'VideoPlayerScreen'];
+const hideTabBarRoutes: Array<keyof WatchStackParamList> = [
+  'WatchMovieDetailScreen',
+  'VideoPlayerScreen',
+  'WatchSelectDateTimeScreen'
+];
 
 export const BottomTabBar: React.FC<BottomTabBarProps> = ({ state, descriptors, navigation }) => {
   const theme = useTheme();
@@ -19,7 +24,7 @@ export const BottomTabBar: React.FC<BottomTabBarProps> = ({ state, descriptors, 
   const focusedRouteName = getFocusedRouteNameFromRoute(currentRoute);
 
   // Hide tab bar if on WatchMovieDetailScreen
-  if (currentRoute.name === 'WatchStack' && hideTabBarRoutes.includes(focusedRouteName ?? '')) {
+  if (currentRoute.name === 'WatchStack' && hideTabBarRoutes.includes(focusedRouteName as keyof WatchStackParamList)) {
     return null;
   }
 

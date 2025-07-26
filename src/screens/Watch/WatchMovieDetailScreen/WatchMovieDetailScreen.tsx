@@ -35,6 +35,12 @@ export const WatchMovieDetailScreen: FC<WatchMovieDetailScreenProps> = ({ naviga
     }
   };
 
+  const handleGetTickets = () => {
+    navigation.navigate('WatchSelectDateTimeScreen', {
+      movie: route.params.movie
+    });
+  };
+
   if (isLoading)
     return (
       <View style={styles.container}>
@@ -73,7 +79,7 @@ export const WatchMovieDetailScreen: FC<WatchMovieDetailScreenProps> = ({ naviga
         <Text style={styles.releaseDate}>{`In Theaters ${dayjs(movie.release_date).format('MMMM D, YYYY')}`}</Text>
 
         <View style={styles.buttonsContainer}>
-          <Button mode='contained' style={styles.getTicketsButton} labelStyle={styles.buttonText}>
+          <Button mode='contained' style={styles.getTicketsButton} labelStyle={styles.buttonText} onPress={handleGetTickets}>
             Get Tickets
           </Button>
           <Button
