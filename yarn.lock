@@ -2927,6 +2927,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/language-name-map@npm:^0":
+  version: 0.3.4
+  resolution: "@types/language-name-map@npm:0.3.4"
+  checksum: 10c0/1a23f7a7a3c9a26b801e0b091314c0bf2bafdd842b0972e04cb6cb174995e4d4875a3bf0a7493625a91b8a8e46d1c21f2fe677fd28705992b44c5f0cbcc133b2
+  languageName: node
+  linkType: hard
+
 "@types/node@npm:*":
   version: 24.1.0
   resolution: "@types/node@npm:24.1.0"
@@ -7329,6 +7336,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"language-name-map@npm:^0.3.0":
+  version: 0.3.0
+  resolution: "language-name-map@npm:0.3.0"
+  checksum: 10c0/33401b9f161683d1c4f5027b40c4c782fa93e777e1e8d4d1c3af6e3f9da1f06cff23f854183794b2c4668a1c468dba54372f9bf37cd54a3efece194245c456ba
+  languageName: node
+  linkType: hard
+
 "launch-editor@npm:^2.9.1":
   version: 2.10.0
   resolution: "launch-editor@npm:2.10.0"
@@ -10305,6 +10319,7 @@ __metadata:
     "@react-navigation/native": "npm:^7.1.15"
     "@react-navigation/native-stack": "npm:^7.3.22"
     "@types/jest": "npm:^29.5.13"
+    "@types/language-name-map": "npm:^0"
     "@types/react": "npm:^19.1.0"
     "@types/react-native-vector-icons": "npm:^6.4.18"
     "@types/react-test-renderer": "npm:^19.1.0"
@@ -10316,6 +10331,7 @@ __metadata:
     eslint-plugin-simple-import-sort: "npm:^12.1.1"
     husky: "npm:^9.1.7"
     jest: "npm:^29.6.3"
+    language-name-map: "npm:^0.3.0"
     pinst: "npm:^3.0.0"
     prettier: "npm:2.8.8"
     react: "npm:19.1.0"

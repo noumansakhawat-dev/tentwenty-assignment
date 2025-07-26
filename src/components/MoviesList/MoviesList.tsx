@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { FlatList, View } from 'react-native';
+import { FlatList, StyleProp, View, ViewStyle } from 'react-native';
 import { ActivityIndicator, Text } from 'react-native-paper';
 import { MovieCard } from './components/MovieCard';
 
@@ -13,13 +13,17 @@ type MoviesListProps = {
   numColumns?: number;
   onEndReached?: (info: { distanceFromEnd: number }) => void;
   isMoreLoading?: boolean;
+  style?: StyleProp<ViewStyle>;
+  numberOfLines?: number;
 };
 export const MoviesList: FC<MoviesListProps> = ({
   data,
   numColumns = 1,
   onEndReached,
   isMoreLoading = false,
-  isLoading = false
+  isLoading = false,
+  style,
+  numberOfLines
 }) => {
   const theme = useTheme();
 
@@ -38,12 +42,16 @@ export const MoviesList: FC<MoviesListProps> = ({
       keyExtractor={(item, index) => `upcoming-${item.id}-${index}`}
       renderItem={({ item }) => (
         <MovieCard
-          imageUrl={`https://image.tmdb.org/t/p/original${item.backdrop_path}`}
+          imageUrl={`https://image.tmdb.org/t/p/original${item.backdrop_path || item.poster_path}`}
           title={item.title}
-          style={{
-            marginHorizontal: theme.spacing.m,
-            marginBottom: theme.spacing.m
-          }}
+          style={[
+            {
+              marginHorizontal: theme.spacing.m,
+              marginBottom: theme.spacing.m
+            },
+            style
+          ]}
+          numberOfLines={numberOfLines}
         />
       )}
       maxToRenderPerBatch={20}

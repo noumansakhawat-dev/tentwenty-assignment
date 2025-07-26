@@ -3,6 +3,7 @@ import React, { FC } from 'react';
 import IconDashboardSvg from './svgs/dashboard.svg';
 import IconMediaLibrarySvg from './svgs/mediaLibrary.svg';
 import IconMoreSvg from './svgs/more.svg';
+import IconOptionDotSvg from './svgs/optionDot.svg';
 import IconTentwentySvg from './svgs/tentwenty.svg';
 import IconWatchSvg from './svgs/watch.svg';
 import { getSize } from './utils/getSize';
@@ -51,6 +52,22 @@ export const IconMore: FC<IconProps> = ({ color = '#000000', size = 'xxs', isRTL
   const iconSize = getSize(size);
   return (
     <IconMoreSvg
+      color={color}
+      height={iconSize}
+      width={iconSize}
+      style={{
+        transform: isRTL ? [{ scaleX: -1 }] : []
+      }}
+      testID={testID}
+      accessible={true}
+      accessibilityRole='image'
+    />
+  );
+};
+export const IconOptionDot: FC<IconProps> = ({ color = '#000000', size = 'xxs', isRTL = false, testID = 'icon-optionDot' }) => {
+  const iconSize = getSize(size);
+  return (
+    <IconOptionDotSvg
       color={color}
       height={iconSize}
       width={iconSize}
