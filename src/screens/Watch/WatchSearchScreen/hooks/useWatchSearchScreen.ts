@@ -1,10 +1,10 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { RouteProp, useRoute } from '@react-navigation/native';
+import { debounce } from 'lodash';
 import { IUpcomingMovies } from '../../types';
 
 import { useAxios } from '~/config/Axios';
 import { WatchStackParamList } from '~/navigation/stack';
-import { debounce } from '~/utils/debounce';
 
 export const useWatchSearchScreen = () => {
   const route = useRoute<RouteProp<WatchStackParamList, 'WatchSearchScreen'>>();
@@ -31,17 +31,17 @@ export const useWatchSearchScreen = () => {
   );
 
   // Debounced search function
-  const debouncedSearch = useCallback(
-    debounce((query: string) => {
-      // Pass the query parameter to executeSearch
-      executeSearch({
-        params: {
-          language: 'en-US',
-          include_adult: false,
-          query: query
-        }
-      });
-    }, 1000),
+  const debouncedSearch = useMemo(
+    () =>
+      debounce((query: string) => {
+        executeSearch({
+          params: {
+            language: 'en-US',
+            include_adult: false,
+            query: query
+          }
+        });
+      }, 1000),
     [executeSearch]
   );
 
@@ -50,6 +50,8 @@ export const useWatchSearchScreen = () => {
       // Call API, but add debounce
       debouncedSearch(searchQuery);
     } else {
+      // Cancel any pending debounced calls when clearing search
+      debouncedSearch.cancel();
       setData({
         data: upcomingMovies,
         isSearched: false
@@ -65,6 +67,13 @@ export const useWatchSearchScreen = () => {
       });
     }
   }, [searchData, searchQuery]);
+
+  // Cleanup debounced function on unmount
+  useEffect(() => {
+    return () => {
+      debouncedSearch.cancel();
+    };
+  }, [debouncedSearch]);
 
   return useMemo(
     () => ({

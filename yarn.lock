@@ -2934,6 +2934,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/lodash@npm:^4":
+  version: 4.17.20
+  resolution: "@types/lodash@npm:4.17.20"
+  checksum: 10c0/98cdd0faae22cbb8079a01a3bb65aa8f8c41143367486c1cbf5adc83f16c9272a2a5d2c1f541f61d0d73da543c16ee1d21cf2ef86cb93cd0cc0ac3bced6dd88f
+  languageName: node
+  linkType: hard
+
 "@types/node@npm:*":
   version: 24.1.0
   resolution: "@types/node@npm:24.1.0"
@@ -10320,6 +10327,7 @@ __metadata:
     "@react-navigation/native-stack": "npm:^7.3.22"
     "@types/jest": "npm:^29.5.13"
     "@types/language-name-map": "npm:^0"
+    "@types/lodash": "npm:^4"
     "@types/react": "npm:^19.1.0"
     "@types/react-native-vector-icons": "npm:^6.4.18"
     "@types/react-test-renderer": "npm:^19.1.0"
@@ -10332,6 +10340,7 @@ __metadata:
     husky: "npm:^9.1.7"
     jest: "npm:^29.6.3"
     language-name-map: "npm:^0.3.0"
+    lodash: "npm:^4.17.21"
     pinst: "npm:^3.0.0"
     prettier: "npm:2.8.8"
     react: "npm:19.1.0"
