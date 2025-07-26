@@ -15,4 +15,10 @@ export type WatchStackParamList = {
   WatchSelectDateTimeScreen: {
     movie: IUpcomingMovies['results'][number];
   };
+  WatchReserveSeatScreen: {
+    movieTitle: string;
+    date: string;
+    time: string;
+    cinema: string;
+  };
 };

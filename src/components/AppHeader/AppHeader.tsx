@@ -32,9 +32,10 @@ export const AppHeader: FC<AppHeaderProps> & {
             justifyContent: 'center'
           }}>
           <Text
-            variant='titleLarge'
+            variant='titleMedium'
             style={{
-              color: theme.colors.darkBlueGray
+              color: theme.colors.darkBlueGray,
+              fontWeight: 'semibold'
             }}
             numberOfLines={1}>
             {title}

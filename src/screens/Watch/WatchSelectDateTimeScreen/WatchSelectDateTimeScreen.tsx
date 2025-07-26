@@ -202,8 +202,12 @@ export const WatchSelectDateTimeScreen: React.FC<WatchSelectDateTimeScreenProps>
         <Button
           mode='contained'
           onPress={() => {
-            // Handle seat selection navigation
-            console.log('Select Seats pressed');
+            navigation.navigate('WatchReserveSeatScreen', {
+              movieTitle: movie.title,
+              date: selectedDate,
+              time: showtimes.find((showtime) => showtime.id === selectedShowtime)?.time || '',
+              cinema: showtimes.find((showtime) => showtime.id === selectedShowtime)?.cinema || ''
+            });
           }}
           disabled={!selectedShowtime || !selectedDate}
           style={[styles.selectSeatsButton, (!selectedShowtime || !selectedDate) && styles.selectSeatsButtonDisabled]}

@@ -4,6 +4,7 @@ import IconDashboardSvg from './svgs/dashboard.svg';
 import IconMediaLibrarySvg from './svgs/mediaLibrary.svg';
 import IconMoreSvg from './svgs/more.svg';
 import IconOptionDotSvg from './svgs/optionDot.svg';
+import IconScreenSvg from './svgs/screen.svg';
 import IconTentwentySvg from './svgs/tentwenty.svg';
 import IconWatchSvg from './svgs/watch.svg';
 import { getSize } from './utils/getSize';
@@ -68,6 +69,22 @@ export const IconOptionDot: FC<IconProps> = ({ color = '#000000', size = 'xxs', 
   const iconSize = getSize(size);
   return (
     <IconOptionDotSvg
+      color={color}
+      height={iconSize}
+      width={iconSize}
+      style={{
+        transform: isRTL ? [{ scaleX: -1 }] : []
+      }}
+      testID={testID}
+      accessible={true}
+      accessibilityRole='image'
+    />
+  );
+};
+export const IconScreen: FC<IconProps> = ({ color = '#000000', size = 'xxs', isRTL = false, testID = 'icon-screen' }) => {
+  const iconSize = getSize(size);
+  return (
+    <IconScreenSvg
       color={color}
       height={iconSize}
       width={iconSize}

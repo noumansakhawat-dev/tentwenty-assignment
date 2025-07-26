@@ -13,7 +13,8 @@ import { useTheme } from '~/hooks/useTheme';
 const hideTabBarRoutes: Array<keyof WatchStackParamList> = [
   'WatchMovieDetailScreen',
   'VideoPlayerScreen',
-  'WatchSelectDateTimeScreen'
+  'WatchSelectDateTimeScreen',
+  'WatchReserveSeatScreen'
 ];
 
 export const BottomTabBar: React.FC<BottomTabBarProps> = ({ state, descriptors, navigation }) => {
