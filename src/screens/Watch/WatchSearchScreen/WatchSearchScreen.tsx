@@ -35,14 +35,24 @@ export const WatchSearchScreen: FC<WatchSearchScreenProps> = ({ navigation, rout
                 marginBottom: theme.spacing.xxxs,
                 marginTop: theme.spacing.m
               }}>
-              <Text
+              <View
                 style={{
-                  color: theme.colors.darkBlueGray,
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
                   marginBottom: theme.spacing.xxs
-                }}
-                variant='labelLarge'>
-                Top Results
-              </Text>
+                }}>
+                <Text
+                  style={{
+                    color: theme.colors.darkBlueGray
+                  }}
+                  variant='labelLarge'>
+                  Top Results
+                </Text>
+                <Text variant='labelSmall' style={{ color: theme.colors.darkBlueGray }}>
+                  {response.data.length} Results
+                </Text>
+              </View>
               <Divider />
             </View>
           )}
