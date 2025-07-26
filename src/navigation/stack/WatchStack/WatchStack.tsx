@@ -2,7 +2,13 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { WatchStackParamList } from './types';
 
 import { AppHeader } from '~/components';
-import { VideoPlayerScreen, WatchDashboardScreen, WatchMovieDetailScreen, WatchSearchScreen } from '~/screens/Watch';
+import {
+  VideoPlayerScreen,
+  WatchDashboardScreen,
+  WatchMovieDetailScreen,
+  WatchSearchScreen,
+  WatchSelectDateTimeScreen
+} from '~/screens/Watch';
 
 const Stack = createNativeStackNavigator<WatchStackParamList>();
 export const WatchStack = () => {
@@ -31,6 +37,13 @@ export const WatchStack = () => {
           headerShown: false,
           presentation: 'fullScreenModal',
           gestureEnabled: false
+        }}
+      />
+      <Stack.Screen
+        name='WatchSelectDateTimeScreen'
+        component={WatchSelectDateTimeScreen}
+        options={{
+          headerShown: false
         }}
       />
     </Stack.Navigator>

@@ -12,4 +12,7 @@ export type WatchStackParamList = {
     videoKey: string;
     movieTitle: string;
   };
+  WatchSelectDateTimeScreen: {
+    movie: IUpcomingMovies['results'][number];
+  };
 };
