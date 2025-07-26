@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { StatusBar, View } from 'react-native';
+import { View } from 'react-native';
 import { ScrollView } from 'react-native';
 import { ActivityIndicator, Appbar, Button, Text } from 'react-native-paper';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
@@ -11,7 +11,7 @@ import useWatchMovieDetail from './hooks/useWatchMovieDetail';
 import { genresColors } from './utils/genresColors';
 import { useStyles } from './WatchMovieDetailScreen.styles';
 
-import { AppHeader } from '~/components';
+import { AppHeader, AppStatusBar } from '~/components';
 import { useTheme } from '~/hooks/useTheme';
 import { WatchStackParamList } from '~/navigation/stack';
 
@@ -57,7 +57,7 @@ export const WatchMovieDetailScreen: FC<WatchMovieDetailScreenProps> = ({ naviga
   }
   return (
     <ScrollView style={styles.container}>
-      <StatusBar barStyle='light-content' />
+      <AppStatusBar barStyle='light-content' />
       <MovieDetailBackgroundImage
         imageUrl={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
         header={

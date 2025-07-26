@@ -1,10 +1,11 @@
 import { FC, useCallback, useRef, useState } from 'react';
-import { StatusBar, StyleSheet, useWindowDimensions, View } from 'react-native';
+import { StyleSheet, useWindowDimensions, View } from 'react-native';
 import { showMessage } from 'react-native-flash-message';
 import { ActivityIndicator, Appbar } from 'react-native-paper';
 import YoutubePlayer from 'react-native-youtube-iframe';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
+import { AppStatusBar } from '~/components';
 import { useTheme } from '~/hooks/useTheme';
 import { WatchStackParamList } from '~/navigation/stack';
 
@@ -46,7 +47,7 @@ export const VideoPlayerScreen: FC<VideoPlayerScreenProps> = ({ navigation, rout
 
   return (
     <View style={styles.container}>
-      <StatusBar barStyle='light-content' backgroundColor='black' />
+      <AppStatusBar barStyle='light-content' />
 
       <Appbar.Header style={styles.header}>
         <Appbar.Content title={`${movieTitle} - Trailer`} titleStyle={styles.headerTitle} />

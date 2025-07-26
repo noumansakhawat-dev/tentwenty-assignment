@@ -9,7 +9,13 @@ export const WatchStack = () => {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name='WatchDashboardScreen' component={WatchDashboardScreen} />
-      <Stack.Screen name='WatchSearchScreen' component={WatchSearchScreen} />
+      <Stack.Screen
+        name='WatchSearchScreen'
+        component={WatchSearchScreen}
+        options={{
+          headerShown: false
+        }}
+      />
       <Stack.Screen
         name='WatchMovieDetailScreen'
         component={WatchMovieDetailScreen}
