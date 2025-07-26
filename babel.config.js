@@ -15,7 +15,8 @@ module.exports = function (api) {
           extensions: ['.ios.js', '.android.js', '.js', '.ts', '.tsx', '.json'],
           alias: {
             '~': ['./src/'],
-            '@tentwenty-tech/theme': './src/hooks/useTheme.ts'
+            '@tentwenty-tech/theme': './src/hooks/useTheme.ts',
+            '@tentwenty-tech/icons': './packages/icons/index.tsx'
           }
         }
       ]

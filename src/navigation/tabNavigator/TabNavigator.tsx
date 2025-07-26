@@ -1,22 +1,40 @@
-import { useTheme } from 'react-native-paper';
-import { createMaterialBottomTabNavigator } from 'react-native-paper/react-navigation';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import { MaterialBottomTabNavigator, TabNavigatorParamList } from './types';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { BottomTabBar } from './BottomTabBar';
+import { TabNavigatorParamList } from './types';
 
-import { TestScreen } from '~/screens';
+import { DashboardScreen, MediaLibraryScreen, MoreScreen, WatchScreen } from '~/screens';
 
-const Tab: MaterialBottomTabNavigator<TabNavigatorParamList> = createMaterialBottomTabNavigator();
+const Tab = createBottomTabNavigator<TabNavigatorParamList>();
 
 export const TabNavigator = ({}) => {
-  const theme = useTheme();
   return (
-    <Tab.Navigator lazy activeColor={theme.colors.primary} inactiveColor={theme.colors.inversePrimary}>
+    <Tab.Navigator tabBar={(props) => <BottomTabBar {...props} />}>
       <Tab.Screen
-        name='TestScreen'
-        component={TestScreen}
+        name='DashboardScreen'
+        component={DashboardScreen}
         options={{
-          tabBarLabel: 'Test',
-          tabBarIcon: ({ color }) => <MaterialCommunityIcons name='alpha-t' color={color} size={26} />
+          tabBarLabel: 'Dashboard'
+        }}
+      />
+      <Tab.Screen
+        name='WatchScreen'
+        component={WatchScreen}
+        options={{
+          tabBarLabel: 'Watch'
+        }}
+      />
+      <Tab.Screen
+        name='MediaLibraryScreen'
+        component={MediaLibraryScreen}
+        options={{
+          tabBarLabel: 'Media Library'
+        }}
+      />
+      <Tab.Screen
+        name='MoreScreen'
+        component={MoreScreen}
+        options={{
+          tabBarLabel: 'More'
         }}
       />
     </Tab.Navigator>

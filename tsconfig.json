@@ -5,7 +5,8 @@
     "baseUrl": ".",
     "paths": {
       "~/*": ["src/*"],
-      "@tentwenty-tech/theme": ["src/hooks/useTheme.ts"]
+      "@tentwenty-tech/theme": ["src/hooks/useTheme.ts"],
+      "@tentwenty-tech/icons": ["packages/icons/index.tsx"]
     },
     "jsx": "react-jsx",
     "esModuleInterop": true,

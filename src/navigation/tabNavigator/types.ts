@@ -42,5 +42,8 @@ export type MaterialBottomTabNavigator<T extends ParamListBase> = LegacyTypedNav
  * Types for the TabNavigator
  */
 export type TabNavigatorParamList = {
-  TestScreen: undefined;
+  DashboardScreen: undefined;
+  MediaLibraryScreen: undefined;
+  MoreScreen: undefined;
+  WatchScreen: undefined;
 };
