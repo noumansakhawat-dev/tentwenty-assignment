@@ -138,7 +138,7 @@ export const CinemaHall: FC<CinemaHallProps> = ({ seatRows }) => {
       </View>
 
       {/* Zoom in and out buttons */}
-      <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+      <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end' }}>
         <IconButton
           icon='plus'
           onPress={() => {}}
