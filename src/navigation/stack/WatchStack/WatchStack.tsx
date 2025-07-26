@@ -14,7 +14,7 @@ export const WatchStack = () => {
         name='WatchMovieDetailScreen'
         component={WatchMovieDetailScreen}
         options={{
-          headerShown: true,
+          headerShown: false,
           header: ({ navigation }) => <AppHeader title='Watch' hideSearchButton navigation={navigation as any} />
         }}
       />
