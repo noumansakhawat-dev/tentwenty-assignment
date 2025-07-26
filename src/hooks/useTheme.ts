@@ -18,7 +18,8 @@ const Theme = {
     transparent: 'rgba(0, 0, 0, 0)', // Transparent
     transparentBlack: 'rgba(0, 0, 0, 0.5)', // Semi-transparent Black
     transparentWhite: 'rgba(255, 255, 255, 0.5)', // Semi-transparent White
-    darkBlueGray: '#202C43' // Dark Blue Gray
+    darkBlueGray: '#202C43', // Dark Blue Gray
+    gray: '#8F8F8F' // Gray
   },
   spacing: {
     xxxs: 4,
