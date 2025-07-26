@@ -45,5 +45,5 @@ export type TabNavigatorParamList = {
   DashboardScreen: undefined;
   MediaLibraryScreen: undefined;
   MoreScreen: undefined;
-  WatchScreen: undefined;
+  WatchStack: undefined;
 };

@@ -55,7 +55,7 @@ export const BottomTabBar: React.FC<BottomTabBarProps> = ({ state, descriptors, 
                 {route.name === 'DashboardScreen' && <IconDashboard color={iconColor} size='sss' />}
                 {route.name === 'MediaLibraryScreen' && <IconMediaLibrary color={iconColor} size='sss' />}
                 {route.name === 'MoreScreen' && <IconMore color={iconColor} size='sss' />}
-                {route.name === 'WatchScreen' && <IconWatch color={iconColor} size='sss' />}
+                {route.name === 'WatchStack' && <IconWatch color={iconColor} size='sss' />}
                 <Text style={[styles.label, { color: iconColor }]} variant='bodySmall'>
                   {typeof label === 'string' ? label : 'Tab'}
                 </Text>

@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
-import { IUpcomingMovies } from './types';
+import { IUpcomingMovies } from '../../types';
 
 import { useAxios } from '~/config/Axios';
 
 type Result = IUpcomingMovies['results'][number];
-export const useWatchScreen = () => {
+export const useWatchDashboardScreen = () => {
   const [page, setPage] = useState(1);
   const totalPages = useRef(1);
   const [responseData, setResponseData] = useState<Result[]>([]);

@@ -10,9 +10,10 @@ type MovieCardProps = {
   imageUrl: string;
   title: string;
   onPress?: () => void;
+  numberOfLines?: number;
 };
 
-export const MovieCard: FC<MovieCardProps> = ({ style, imageUrl, title, onPress }) => {
+export const MovieCard: FC<MovieCardProps> = ({ style, imageUrl, title, onPress, numberOfLines }) => {
   const { height } = useWindowDimensions();
   const theme = useTheme();
   return (
@@ -37,6 +38,7 @@ export const MovieCard: FC<MovieCardProps> = ({ style, imageUrl, title, onPress 
           }}
         />
         <Text
+          numberOfLines={numberOfLines}
           style={{
             color: theme.colors.white,
             paddingHorizontal: theme.spacing.m,
