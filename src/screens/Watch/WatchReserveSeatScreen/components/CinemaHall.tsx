@@ -6,30 +6,30 @@ import { IconSeat } from '@tentwenty-tech/icons';
 
 import { useTheme } from '~/hooks/useTheme';
 
-interface CinemaHallProps {
-  seatsPerRow: number[];
-}
+type SeatRow = {
+  seats: number; // Total seats in this row
+  isVip: boolean; // Is this a VIP row
+  selectedSeats: number[]; // Array of selected seat positions (1-indexed)
+  unavailableSeats: number[]; // Array of unavailable seat positions (1-indexed)
+};
 
-export const CinemaHall: FC<CinemaHallProps> = ({ seatsPerRow }) => {
+type CinemaHallProps = {
+  seatRows: SeatRow[];
+};
+
+export const CinemaHall: FC<CinemaHallProps> = ({ seatRows }) => {
   const theme = useTheme();
 
   // Find the maximum number of seats in any row
-  const maxSeats = Math.max(...seatsPerRow);
+  const maxSeats = Math.max(...seatRows.map((row) => row.seats));
 
   // Calculate seat distribution - prioritize middle section first
   const maxSideSeats = 5; // Maximum seats on each side
   const maxMiddleSeats = maxSeats - maxSideSeats * 2; // Reserve space for sides
 
-  const Icon = ({ color }: { color: string }) => {
-    return (
-      <View style={{ marginHorizontal: 2 }}>
-        <IconSeat color={color} size='8' />
-      </View>
-    );
-  };
-
-  const renderSeatRow = (seatCount: number, rowIndex: number) => {
+  const renderSeatRow = (seatRow: SeatRow, rowIndex: number) => {
     const seats = [];
+    const seatCount = seatRow.seats;
 
     // Calculate how many seats to show in each section for this row
     // Priority: Fill middle first, then distribute remainder to left/right
@@ -42,7 +42,8 @@ export const CinemaHall: FC<CinemaHallProps> = ({ seatsPerRow }) => {
 
     // Left side seats
     for (let i = 0; i < rowLeftSeats; i++) {
-      seats.push(<Icon key={`left-${i}`} color={getSeatColor(rowIndex, i)} />);
+      const seatNumber = i + 1; // 1-indexed seat number
+      seats.push(<IconSeat key={`left-${i}`} color={getSeatColor(seatRow, seatNumber)} size='10' />);
     }
 
     // Gap between left and middle
@@ -52,7 +53,8 @@ export const CinemaHall: FC<CinemaHallProps> = ({ seatsPerRow }) => {
 
     // Middle seats
     for (let i = 0; i < rowMiddleSeats; i++) {
-      seats.push(<Icon key={`middle-${i}`} color={getSeatColor(rowIndex, rowLeftSeats + i)} />);
+      const seatNumber = rowLeftSeats + i + 1; // 1-indexed seat number
+      seats.push(<IconSeat key={`middle-${i}`} color={getSeatColor(seatRow, seatNumber)} size='10' />);
     }
 
     // Gap between middle and right
@@ -62,21 +64,31 @@ export const CinemaHall: FC<CinemaHallProps> = ({ seatsPerRow }) => {
 
     // Right side seats
     for (let i = 0; i < rowRightSeats; i++) {
-      seats.push(<Icon key={`right-${i}`} color={getSeatColor(rowIndex, rowLeftSeats + rowMiddleSeats + i)} />);
+      const seatNumber = rowLeftSeats + rowMiddleSeats + i + 1; // 1-indexed seat number
+      seats.push(<IconSeat key={`right-${i}`} color={getSeatColor(seatRow, seatNumber)} size='10' />);
     }
 
     return seats;
   };
 
-  const getSeatColor = (rowIndex: number, seatIndex: number) => {
-    // Sample logic for different seat types based on the screenshot
-    if (rowIndex === seatsPerRow.length - 1) {
-      return SeatColors.vip; // Last row (VIP)
+  const getSeatColor = (seatRow: SeatRow, seatNumber: number) => {
+    // Check if seat is selected
+    if (seatRow.selectedSeats.includes(seatNumber)) {
+      return SeatColors.selected;
     }
-    if (seatIndex % 7 === 0 || seatIndex % 7 === 1) {
-      return SeatColors.notAvailable; // Some seats not available
+
+    // Check if seat is unavailable
+    if (seatRow.unavailableSeats.includes(seatNumber)) {
+      return SeatColors.notAvailable;
     }
-    return SeatColors.regular; // Regular available seats
+
+    // Check if it's a VIP row
+    if (seatRow.isVip) {
+      return SeatColors.vip;
+    }
+
+    // Default to regular available seat
+    return SeatColors.regular;
   };
 
   const styles = StyleSheet.create({
@@ -116,10 +128,10 @@ export const CinemaHall: FC<CinemaHallProps> = ({ seatsPerRow }) => {
     <View style={styles.container}>
       {/* Cinema Hall */}
       <View style={styles.hallContainer}>
-        {seatsPerRow.map((seatCount, rowIndex) => (
+        {seatRows.map((seatRow, rowIndex) => (
           <View key={rowIndex} style={styles.row}>
             <Text style={styles.rowLabel}>{rowIndex + 1}</Text>
-            <View style={styles.seatsContainer}>{renderSeatRow(seatCount, rowIndex)}</View>
+            <View style={styles.seatsContainer}>{renderSeatRow(seatRow, rowIndex)}</View>
           </View>
         ))}
       </View>

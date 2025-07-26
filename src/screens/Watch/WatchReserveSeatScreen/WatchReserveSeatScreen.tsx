@@ -15,10 +15,67 @@ export const WatchReserveSeatScreen: FC<WatchReserveSeatScreenProps> = ({ naviga
   const styles = useStyles();
 
   // Sample data that matches the cinema layout in the screenshot
-  // Each number represents the number of seats in that row
-  const seatsPerRow = [
-    // First few rows with varying seat counts
-    18, 24, 24, 24, 25, 25, 25, 25, 25, 25
+  const seatRows = [
+    {
+      seats: 18,
+      isVip: false,
+      selectedSeats: [ 5, 6, 7],
+      unavailableSeats: [1, 3]
+    },
+    {
+      seats: 24,
+      isVip: false,
+      selectedSeats: [],
+      unavailableSeats: [8, 9, 10]
+    },
+    {
+      seats: 26,
+      isVip: false,
+      selectedSeats: [12, 13],
+      unavailableSeats: [1, 2]
+    },
+    {
+      seats: 26,
+      isVip: false,
+      selectedSeats: [],
+      unavailableSeats: [15, 16, 17]
+    },
+    {
+      seats: 26,
+      isVip: false,
+      selectedSeats: [5, 6, 7, 8],
+      unavailableSeats: []
+    },
+    {
+      seats: 26,
+      isVip: false,
+      selectedSeats: [],
+      unavailableSeats: [20, 21]
+    },
+    {
+      seats: 26,
+      isVip: false,
+      selectedSeats: [10, 11],
+      unavailableSeats: [1, 24, 25, 26]
+    },
+    {
+      seats: 26,
+      isVip: false,
+      selectedSeats: [],
+      unavailableSeats: [3, 4, 5]
+    },
+    {
+      seats: 26,
+      isVip: false,
+      selectedSeats: [14, 15, 16],
+      unavailableSeats: []
+    },
+    {
+      seats: 26,
+      isVip: true,
+      selectedSeats: [],
+      unavailableSeats: [21]
+    }
   ];
 
   return (
@@ -29,7 +86,7 @@ export const WatchReserveSeatScreen: FC<WatchReserveSeatScreenProps> = ({ naviga
         title={movieTitle}
         description={`${dayjs(date).format('MMM D, YYYY')} ${time} | ${cinema}`}
       />
-      <CinemaHall seatsPerRow={seatsPerRow} />
+      <CinemaHall seatRows={seatRows} />
     </View>
   );
 };
