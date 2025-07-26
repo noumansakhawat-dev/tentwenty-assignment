@@ -14,7 +14,7 @@ export const WatchScreen: FC<WatchScreenProps> = ({ navigation }) => {
   const { response, isLoading, isMoreLoading, loadMore, isPagesLoaded } = useWatchScreen();
 
   return (
-    <View style={{ flex: 1,backgroundColor: theme.colors.lightGray }}>
+    <View style={{ flex: 1, backgroundColor: theme.colors.lightGray }}>
       <AppHeader
         title='Watch'
         navigation={navigation as any}
@@ -30,7 +30,7 @@ export const WatchScreen: FC<WatchScreenProps> = ({ navigation }) => {
       ) : (
         <FlatList
           data={response.data}
-          style={{paddingTop: theme.spacing.m}}
+          style={{ paddingTop: theme.spacing.m }}
           keyExtractor={(item, index) => `${item.id}-${index}`}
           renderItem={({ item }) => (
             <MovieCard
