@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { View } from 'react-native';
 import BootSplash from 'react-native-bootsplash';
+import FlashMessage from 'react-native-flash-message';
 import { configureFonts, MD3LightTheme, PaperProvider } from 'react-native-paper';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { DefaultTheme } from '@react-navigation/native';
@@ -60,6 +61,7 @@ export const App = () => {
           </NavigationContainer>
         </SafeAreaProvider>
       </View>
+      <FlashMessage position='top' />
     </PaperProvider>
   );
 };
