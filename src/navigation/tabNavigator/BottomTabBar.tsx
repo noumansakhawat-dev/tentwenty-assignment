@@ -9,7 +9,7 @@ import { IconDashboard, IconMediaLibrary, IconMore, IconWatch } from '@tentwenty
 
 import { useTheme } from '~/hooks/useTheme';
 
-const hideTabBarRoutes = ['WatchMovieDetailScreen'];
+const hideTabBarRoutes = ['WatchMovieDetailScreen', 'VideoPlayerScreen'];
 
 export const BottomTabBar: React.FC<BottomTabBarProps> = ({ state, descriptors, navigation }) => {
   const theme = useTheme();

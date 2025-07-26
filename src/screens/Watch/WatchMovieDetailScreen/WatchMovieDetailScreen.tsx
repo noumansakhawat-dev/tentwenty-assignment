@@ -6,6 +6,7 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import dayjs from 'dayjs';
 import { GenreTag } from './components/GenreTag';
 import { MovieDetailBackgroundImage } from './components/MovieDetailBackgroundImage';
+import { useMovieVideos } from './hooks/useMovieVideos';
 import useWatchMovieDetail from './hooks/useWatchMovieDetail';
 import { genresColors } from './utils/genresColors';
 import { useStyles } from './WatchMovieDetailScreen.styles';
@@ -23,7 +24,16 @@ export const WatchMovieDetailScreen: FC<WatchMovieDetailScreenProps> = ({ naviga
     movie: { id: movieID }
   } = route.params;
   const { movie, isLoading } = useWatchMovieDetail({ movieID });
-  console.log(movie);
+  const { trailerKey } = useMovieVideos({ movieID });
+
+  const handleWatchTrailer = () => {
+    if (trailerKey) {
+      navigation.navigate('VideoPlayerScreen', {
+        videoKey: trailerKey,
+        movieTitle: movie?.title || 'Movie Trailer'
+      });
+    }
+  };
 
   if (isLoading)
     return (
@@ -66,7 +76,13 @@ export const WatchMovieDetailScreen: FC<WatchMovieDetailScreenProps> = ({ naviga
           <Button mode='contained' style={styles.getTicketsButton} labelStyle={styles.buttonText}>
             Get Tickets
           </Button>
-          <Button mode='outlined' style={styles.watchTrailerButton} labelStyle={styles.buttonText} icon='play'>
+          <Button
+            mode='outlined'
+            style={styles.watchTrailerButton}
+            labelStyle={styles.buttonText}
+            icon='play'
+            onPress={handleWatchTrailer}
+            disabled={!trailerKey}>
             Watch Trailer
           </Button>
         </View>

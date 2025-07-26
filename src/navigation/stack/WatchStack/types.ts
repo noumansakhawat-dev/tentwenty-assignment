@@ -8,4 +8,8 @@ export type WatchStackParamList = {
   WatchMovieDetailScreen: {
     movie: IUpcomingMovies['results'][number];
   };
+  VideoPlayerScreen: {
+    videoKey: string;
+    movieTitle: string;
+  };
 };
