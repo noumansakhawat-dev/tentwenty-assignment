@@ -23,9 +23,10 @@ export const AppSearchHeader: FC<AppSearchHeaderProps> = ({
     onSearchClose && onSearchClose();
     onSearchChange && onSearchChange('');
   };
+
   return (
     <Appbar.Header mode='small'>
-      <View style={{ flex: 1, marginHorizontal: theme.spacing.s }}>
+      <View style={{ flex: 1, marginHorizontal: theme.spacing.s, marginTop: theme.spacing.s }}>
         <Searchbar
           placeholder='Search'
           onChangeText={onSearchChange}

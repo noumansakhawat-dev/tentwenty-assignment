@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { SafeAreaView, useWindowDimensions, View } from 'react-native';
+import { useWindowDimensions, View } from 'react-native';
 import { Divider, Text } from 'react-native-paper';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { SearchedMoviesList } from './components/SearchedMoviesList';
@@ -17,7 +17,7 @@ export const WatchSearchScreen: FC<WatchSearchScreenProps> = ({ navigation, rout
   const { response, isSearching, searchQuery, setSearchQuery } = useWatchSearchScreen();
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: theme.colors.lightGray }}>
+    <View style={{ flex: 1, backgroundColor: theme.colors.lightGray }}>
       <AppHeader.SearchBar
         onSearchClose={() => {
           navigation.goBack();
@@ -72,6 +72,6 @@ export const WatchSearchScreen: FC<WatchSearchScreenProps> = ({ navigation, rout
           numberOfLines={2}
         />
       )}
-    </SafeAreaView>
+    </View>
   );
 };
