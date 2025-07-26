@@ -1,15 +1,16 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { WatchStack } from '../stack/WatchStack/WatchStack';
 import { BottomTabBar } from './BottomTabBar';
 import { TabNavigatorParamList } from './types';
 
 import { AppHeader } from '~/components';
-import { DashboardScreen, MediaLibraryScreen, MoreScreen, WatchScreen } from '~/screens';
+import { DashboardScreen, MediaLibraryScreen, MoreScreen } from '~/screens';
 
 const Tab = createBottomTabNavigator<TabNavigatorParamList>();
 
 export const TabNavigator = ({}) => {
   return (
-    <Tab.Navigator tabBar={(props) => <BottomTabBar {...props} />} initialRouteName='WatchScreen' detachInactiveScreens>
+    <Tab.Navigator tabBar={(props) => <BottomTabBar {...props} />} initialRouteName='WatchStack' detachInactiveScreens>
       <Tab.Screen
         name='DashboardScreen'
         component={DashboardScreen}
@@ -19,8 +20,8 @@ export const TabNavigator = ({}) => {
         }}
       />
       <Tab.Screen
-        name='WatchScreen'
-        component={WatchScreen}
+        name='WatchStack'
+        component={WatchStack}
         options={{
           tabBarLabel: 'Watch',
           headerShown: false,

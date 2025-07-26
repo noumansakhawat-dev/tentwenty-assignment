@@ -11,20 +11,9 @@ type Base = {
 
 type DefaultVariant = Base & {
   variant?: 'default';
-} & (
-    | {
-        hideSearchButton?: true;
-        onSearchChange?: never;
-        searchQuery?: never;
-        searchLoading?: never;
-      }
-    | {
-        hideSearchButton?: false;
-        onSearchChange: (query: string) => void;
-        searchQuery: string;
-        searchLoading?: boolean;
-      }
-  );
+  hideSearchButton?: boolean;
+  onSearchPress?: () => void;
+};
 
 type CenterVariant = Base & {
   variant: 'center';

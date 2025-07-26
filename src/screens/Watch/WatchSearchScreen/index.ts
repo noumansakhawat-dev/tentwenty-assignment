@@ -1,0 +1,1 @@
+export { WatchSearchScreen } from './WatchSearchScreen';
