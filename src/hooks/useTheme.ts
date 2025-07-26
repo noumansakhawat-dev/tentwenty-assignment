@@ -17,7 +17,8 @@ const Theme = {
     info: '#5AC8FA', // Light Blue for informational messages
     transparent: 'rgba(0, 0, 0, 0)', // Transparent
     transparentBlack: 'rgba(0, 0, 0, 0.5)', // Semi-transparent Black
-    transparentWhite: 'rgba(255, 255, 255, 0.5)' // Semi-transparent White
+    transparentWhite: 'rgba(255, 255, 255, 0.5)', // Semi-transparent White
+    darkBlueGray: '#202C43' // Dark Blue Gray
   },
   spacing: {
     xxxs: 4,
