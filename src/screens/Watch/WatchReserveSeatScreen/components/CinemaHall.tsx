@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { IconButton } from 'react-native-paper';
 import { SeatColors } from '../utils/seatColors';
 
 import { IconSeat } from '@tentwenty-tech/icons';
@@ -134,6 +135,42 @@ export const CinemaHall: FC<CinemaHallProps> = ({ seatRows }) => {
             <View style={styles.seatsContainer}>{renderSeatRow(seatRow, rowIndex)}</View>
           </View>
         ))}
+      </View>
+
+      {/* Zoom in and out buttons */}
+      <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+        <IconButton
+          icon='plus'
+          onPress={() => {}}
+          size={24}
+          style={{
+            backgroundColor: theme.colors.white,
+            shadowColor: theme.colors.black,
+            shadowOffset: {
+              width: 0,
+              height: 2
+            },
+            shadowOpacity: 0.1,
+            shadowRadius: 8,
+            elevation: 4
+          }}
+        />
+        <IconButton
+          icon='minus'
+          onPress={() => {}}
+          size={24}
+          style={{
+            backgroundColor: theme.colors.white,
+            shadowColor: theme.colors.black,
+            shadowOffset: {
+              width: 0,
+              height: 2
+            },
+            shadowOpacity: 0.1,
+            shadowRadius: 8,
+            elevation: 4
+          }}
+        />
       </View>
     </View>
   );
