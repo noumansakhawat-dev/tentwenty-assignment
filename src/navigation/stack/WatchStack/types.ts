@@ -5,4 +5,7 @@ export type WatchStackParamList = {
   WatchSearchScreen: {
     upcomingMovies: IUpcomingMovies['results'];
   };
+  WatchMovieDetailScreen: {
+    movie: IUpcomingMovies['results'][number];
+  };
 };

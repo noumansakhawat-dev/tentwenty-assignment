@@ -3,13 +3,25 @@ import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Text } from 'react-native-paper';
 import { enableScreens } from 'react-native-screens';
 import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
+import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
 
 import { IconDashboard, IconMediaLibrary, IconMore, IconWatch } from '@tentwenty-tech/icons';
 
 import { useTheme } from '~/hooks/useTheme';
 
+const hideTabBarRoutes = ['WatchMovieDetailScreen'];
+
 export const BottomTabBar: React.FC<BottomTabBarProps> = ({ state, descriptors, navigation }) => {
   const theme = useTheme();
+
+  // Check if WatchMovieDetailScreen is focused
+  const currentRoute = state.routes[state.index];
+  const focusedRouteName = getFocusedRouteNameFromRoute(currentRoute);
+
+  // Hide tab bar if on WatchMovieDetailScreen
+  if (currentRoute.name === 'WatchStack' && hideTabBarRoutes.includes(focusedRouteName ?? '')) {
+    return null;
+  }
 
   return (
     <View style={[styles.container, { backgroundColor: theme.colors.lightGray }]}>
