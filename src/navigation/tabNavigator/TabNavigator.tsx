@@ -8,7 +8,7 @@ const Tab = createBottomTabNavigator<TabNavigatorParamList>();
 
 export const TabNavigator = ({}) => {
   return (
-    <Tab.Navigator tabBar={(props) => <BottomTabBar {...props} />}>
+    <Tab.Navigator tabBar={(props) => <BottomTabBar {...props} />} initialRouteName='DashboardScreen' detachInactiveScreens>
       <Tab.Screen
         name='DashboardScreen'
         component={DashboardScreen}

@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Text } from 'react-native-paper';
+import { enableScreens } from 'react-native-screens';
 import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
 
 import { IconDashboard, IconMediaLibrary, IconMore, IconWatch } from '@tentwenty-tech/icons';
@@ -14,7 +15,6 @@ export const BottomTabBar: React.FC<BottomTabBarProps> = ({ state, descriptors, 
     <View style={[styles.container, { backgroundColor: theme.colors.lightGray }]}>
       <View style={[styles.tabContainer, { backgroundColor: theme.colors.primary }]}>
         {state.routes.map((route, index) => {
-          console.log('Route:', route);
           const { options } = descriptors[route.key];
           const label = options.tabBarLabel ?? options.title ?? route.name;
           const isFocused = state.index === index;
@@ -27,6 +27,7 @@ export const BottomTabBar: React.FC<BottomTabBarProps> = ({ state, descriptors, 
             });
 
             if (!isFocused && !event.defaultPrevented) {
+              enableScreens(true);
               navigation.navigate(route.name, route.params);
             }
           };
@@ -75,8 +76,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     borderTopLeftRadius: 24,
     borderTopRightRadius: 24,
-    paddingVertical: 8,
-    paddingHorizontal: 8,
+    paddingTop: 10,
+    paddingBottom: 16,
+    paddingHorizontal: 16,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
