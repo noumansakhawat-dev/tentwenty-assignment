@@ -36,9 +36,7 @@ export const SearchedMoviesList: FC<SearchedMoviesListProps> = ({
         <View
           style={{
             flexDirection: 'row',
-            alignItems: 'center',
-
-            flex: 1
+            alignItems: 'center'
           }}>
           {isImageAvailable ? (
             <Image
