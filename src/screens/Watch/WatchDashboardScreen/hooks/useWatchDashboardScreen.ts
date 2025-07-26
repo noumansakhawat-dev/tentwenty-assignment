@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { IUpcomingMovies } from '../../types';
 
 import { useAxios } from '~/config/Axios';
@@ -8,7 +8,6 @@ export const useWatchDashboardScreen = () => {
   const [page, setPage] = useState(1);
   const totalPages = useRef(1);
   const [responseData, setResponseData] = useState<Result[]>([]);
-  const [isPagesLoaded, setIsPagesLoaded] = useState(false);
   const [isMoreLoading, setIsMoreLoading] = useState(false);
 
   const [{ data, loading, error }, refetch] = useAxios({
@@ -39,26 +38,26 @@ export const useWatchDashboardScreen = () => {
   }, [data]);
 
   const loadMore = () => {
-    if (isPagesLoaded) return;
+    if (data.length === 0 || isMoreLoading || loading) return;
     if (page < totalPages.current) {
       setPage((prev) => prev + 1);
       setIsMoreLoading(true);
       refetch();
-    } else {
-      setIsPagesLoaded(true);
     }
   };
 
-  return {
-    isLoading: loading,
-    isMoreLoading,
-    error,
-    loadMore,
-    isPagesLoaded,
-    response: {
-      data: responseData,
-      page,
-      totalPages: totalPages.current
-    }
-  };
+  return useMemo(
+    () => ({
+      isLoading: loading,
+      isMoreLoading,
+      error,
+      loadMore,
+      response: {
+        data: responseData,
+        page,
+        totalPages: totalPages.current
+      }
+    }),
+    [loading, isMoreLoading, error, responseData, page, totalPages.current]
+  );
 };

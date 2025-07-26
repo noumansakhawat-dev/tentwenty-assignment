@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { View } from 'react-native';
+import { StatusBar, View } from 'react-native';
 import BootSplash from 'react-native-bootsplash';
 import FlashMessage from 'react-native-flash-message';
 import { configureFonts, MD3LightTheme, PaperProvider } from 'react-native-paper';
@@ -55,6 +55,7 @@ export const App = () => {
   return (
     <PaperProvider theme={{ ...paperTheme, colors: { ...paperTheme.colors, primary: theme.colors.primary } }}>
       <View style={{ flex: 1, backgroundColor: '#fff' }} onLayout={onLayoutRootView}>
+        <StatusBar backgroundColor={theme.colors.primary} barStyle='dark-content' />
         <SafeAreaProvider>
           <NavigationContainer theme={navTheme}>
             <TabNavigator />

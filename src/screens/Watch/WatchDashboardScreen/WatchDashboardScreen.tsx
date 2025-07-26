@@ -10,7 +10,7 @@ import { WatchStackParamList } from '~/navigation/stack';
 type WatchDashboardScreenProps = NativeStackScreenProps<WatchStackParamList, 'WatchDashboardScreen'>;
 export const WatchDashboardScreen: FC<WatchDashboardScreenProps> = ({ navigation }) => {
   const theme = useTheme();
-  const { response, isLoading, isMoreLoading, loadMore, isPagesLoaded } = useWatchDashboardScreen();
+  const { response, isLoading, isMoreLoading, loadMore } = useWatchDashboardScreen();
 
   return (
     <View style={{ flex: 1, backgroundColor: theme.colors.lightGray }}>
@@ -25,17 +25,7 @@ export const WatchDashboardScreen: FC<WatchDashboardScreenProps> = ({ navigation
         }}
       />
 
-      <MoviesList
-        isLoading={isLoading}
-        data={response.data}
-        onEndReached={() => {
-          if (isMoreLoading || isPagesLoaded) {
-            return;
-          }
-          loadMore();
-        }}
-        isMoreLoading={isMoreLoading}
-      />
+      <MoviesList isLoading={isLoading} data={response.data} onEndReached={loadMore} isMoreLoading={isMoreLoading} />
     </View>
   );
 };
