@@ -57,7 +57,7 @@ export const MoviesList: FC<MoviesListProps> = ({
       maxToRenderPerBatch={20}
       scrollEventThrottle={16}
       onEndReached={onEndReached}
-      onEndReachedThreshold={0}
+      onEndReachedThreshold={0.1}
       contentContainerStyle={{
         paddingBottom: theme.spacing.m
       }}
