@@ -27,7 +27,7 @@ export const WatchSearchScreen: FC<WatchSearchScreenProps> = ({ navigation, rout
       />
 
       {response.isSearched || isSearching ? (
-        <View>
+        <View style={{ flex: 1 }}>
           {response.data.length > 0 && (
             <View
               style={{
