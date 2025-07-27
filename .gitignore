@@ -29,6 +29,7 @@ local.properties
 .cxx/
 *.keystore
 !debug.keystore
+keystore.properties
 .kotlin/
 android/gradle-user-home/
 android/profile-out*/
