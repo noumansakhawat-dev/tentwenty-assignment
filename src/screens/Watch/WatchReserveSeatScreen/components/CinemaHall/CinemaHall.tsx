@@ -1,13 +1,12 @@
 import { FC, useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Text, View } from 'react-native';
 import { GestureHandlerRootView, PanGestureHandler, PinchGestureHandler } from 'react-native-gesture-handler';
 import { IconButton } from 'react-native-paper';
 import Animated, { runOnJS, useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated';
-import { SeatColors } from '../utils/seatColors';
+import { SeatColors } from '../../utils/seatColors';
+import { useStyles } from './CinemaHall.styles';
 
 import { IconSeat } from '@tentwenty-tech/icons';
-
-import { useTheme } from '~/hooks/useTheme';
 
 type SeatRow = {
   seats: number; // Total seats in this row
@@ -21,7 +20,7 @@ type CinemaHallProps = {
 };
 
 export const CinemaHall: FC<CinemaHallProps> = ({ seatRows }) => {
-  const theme = useTheme();
+  const styles = useStyles();
   const [zoomLevel, setZoomLevel] = useState(1);
 
   // Zoom limits
@@ -125,64 +124,6 @@ export const CinemaHall: FC<CinemaHallProps> = ({ seatRows }) => {
   const animatedStyle = useAnimatedStyle(() => ({
     transform: [{ translateX: translateX.value }, { translateY: translateY.value }, { scale: scale.value }]
   }));
-
-  const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      paddingHorizontal: theme.spacing.s,
-      paddingTop: theme.spacing.l
-    },
-    scrollContainer: {
-      flex: 1
-    },
-    gestureContainer: {
-      justifyContent: 'center',
-      alignItems: 'center'
-    },
-    hallContainer: {
-      justifyContent: 'center'
-    },
-    row: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'center',
-      marginBottom: theme.spacing.xs,
-      paddingHorizontal: theme.spacing.xxxs
-    },
-    rowLabel: {
-      width: 20,
-      fontSize: 12,
-      fontWeight: '500',
-      color: theme.colors.mutedLavender,
-      marginRight: theme.spacing.m
-    },
-    seatsContainer: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      flex: 1,
-      justifyContent: 'center'
-    },
-    seatGap: {
-      width: theme.spacing.m
-    },
-    zoomButtonsContainer: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'flex-end',
-      paddingTop: theme.spacing.s
-    },
-    zoomButton: {
-      backgroundColor: theme.colors.white,
-      shadowColor: theme.colors.black,
-      shadowOffset: {
-        width: 0,
-        height: 2
-      },
-      shadowOpacity: 0.1,
-      shadowRadius: 8,
-      elevation: 4
-    }
-  });
 
   return (
     <View style={styles.container}>
