@@ -44,6 +44,9 @@ export const useStyles = () => {
     seatGap: {
       width: theme.spacing.m
     },
+    seatButton: {
+      padding: 6
+    },
     zoomButtonsContainer: {
       flexDirection: 'row',
       alignItems: 'center',

@@ -1,5 +1,5 @@
-import { FC, useState } from 'react';
-import { Text, View } from 'react-native';
+import { FC, useCallback, useState } from 'react';
+import { TouchableOpacity, View } from 'react-native';
 import { GestureHandlerRootView, PanGestureHandler, PinchGestureHandler } from 'react-native-gesture-handler';
 import { IconButton } from 'react-native-paper';
 import Animated, { runOnJS, useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated';
@@ -17,11 +17,13 @@ type SeatRow = {
 
 type CinemaHallProps = {
   seatRows: SeatRow[];
+  onSeatSelect?: (selectedSeats: { rowIndex: number; seatNumber: number }[]) => void;
 };
 
-export const CinemaHall: FC<CinemaHallProps> = ({ seatRows }) => {
+export const CinemaHall: FC<CinemaHallProps> = ({ seatRows, onSeatSelect }) => {
   const styles = useStyles();
   const [zoomLevel, setZoomLevel] = useState(1);
+  const [selectedSeats, setSelectedSeats] = useState<{ rowIndex: number; seatNumber: number }[]>([]);
 
   // Zoom limits
   const MIN_ZOOM = 1;
@@ -60,7 +62,17 @@ export const CinemaHall: FC<CinemaHallProps> = ({ seatRows }) => {
     // Left side seats
     for (let i = 0; i < rowLeftSeats; i++) {
       const seatNumber = i + 1; // 1-indexed seat number
-      seats.push(<IconSeat key={`left-${i}`} color={getSeatColor(seatRow, seatNumber)} size='10' />);
+      const isAvailable = !seatRow.unavailableSeats.includes(seatNumber);
+      seats.push(
+        <TouchableOpacity
+          key={`left-${i}`}
+          onPress={() => handleSeatPress(rowIndex, seatNumber)}
+          disabled={!isAvailable}
+          activeOpacity={0.8}
+          style={styles.seatButton}>
+          <IconSeat color={getSeatColor(seatRow, seatNumber, rowIndex)} size='8' />
+        </TouchableOpacity>
+      );
     }
 
     // Gap between left and middle
@@ -71,7 +83,17 @@ export const CinemaHall: FC<CinemaHallProps> = ({ seatRows }) => {
     // Middle seats
     for (let i = 0; i < rowMiddleSeats; i++) {
       const seatNumber = rowLeftSeats + i + 1; // 1-indexed seat number
-      seats.push(<IconSeat key={`middle-${i}`} color={getSeatColor(seatRow, seatNumber)} size='10' />);
+      const isAvailable = !seatRow.unavailableSeats.includes(seatNumber);
+      seats.push(
+        <TouchableOpacity
+          key={`middle-${i}`}
+          onPress={() => handleSeatPress(rowIndex, seatNumber)}
+          disabled={!isAvailable}
+          activeOpacity={0.8}
+          style={styles.seatButton}>
+          <IconSeat color={getSeatColor(seatRow, seatNumber, rowIndex)} size='8' />
+        </TouchableOpacity>
+      );
     }
 
     // Gap between middle and right
@@ -82,14 +104,57 @@ export const CinemaHall: FC<CinemaHallProps> = ({ seatRows }) => {
     // Right side seats
     for (let i = 0; i < rowRightSeats; i++) {
       const seatNumber = rowLeftSeats + rowMiddleSeats + i + 1; // 1-indexed seat number
-      seats.push(<IconSeat key={`right-${i}`} color={getSeatColor(seatRow, seatNumber)} size='10' />);
+      const isAvailable = !seatRow.unavailableSeats.includes(seatNumber);
+      seats.push(
+        <TouchableOpacity
+          key={`right-${i}`}
+          onPress={() => handleSeatPress(rowIndex, seatNumber)}
+          disabled={!isAvailable}
+          activeOpacity={0.8}
+          style={styles.seatButton}>
+          <IconSeat color={getSeatColor(seatRow, seatNumber, rowIndex)} size='8' />
+        </TouchableOpacity>
+      );
     }
 
     return seats;
   };
 
-  const getSeatColor = (seatRow: SeatRow, seatNumber: number) => {
-    // Check if seat is selected
+  const handleSeatPress = useCallback(
+    (rowIndex: number, seatNumber: number) => {
+      const seatRow = seatRows[rowIndex];
+
+      // Don't allow selection of unavailable seats
+      if (seatRow.unavailableSeats.includes(seatNumber)) {
+        return;
+      }
+
+      const seatId = { rowIndex, seatNumber };
+      const isAlreadySelected = selectedSeats.some((seat) => seat.rowIndex === rowIndex && seat.seatNumber === seatNumber);
+
+      let newSelectedSeats;
+      if (isAlreadySelected) {
+        // Remove seat from selection
+        newSelectedSeats = selectedSeats.filter((seat) => !(seat.rowIndex === rowIndex && seat.seatNumber === seatNumber));
+      } else {
+        // Add seat to selection
+        newSelectedSeats = [...selectedSeats, seatId];
+      }
+
+      setSelectedSeats(newSelectedSeats);
+      onSeatSelect?.(newSelectedSeats);
+    },
+    [selectedSeats, seatRows, onSeatSelect]
+  );
+
+  const getSeatColor = (seatRow: SeatRow, seatNumber: number, rowIndex: number) => {
+    // Check if seat is selected by user
+    const isUserSelected = selectedSeats.some((seat) => seat.rowIndex === rowIndex && seat.seatNumber === seatNumber);
+    if (isUserSelected) {
+      return SeatColors.selected;
+    }
+
+    // Check if seat is pre-selected in data
     if (seatRow.selectedSeats.includes(seatNumber)) {
       return SeatColors.selected;
     }
@@ -163,7 +228,6 @@ export const CinemaHall: FC<CinemaHallProps> = ({ seatRows }) => {
               <Animated.View style={[styles.hallContainer, animatedStyle]}>
                 {seatRows.map((seatRow, rowIndex) => (
                   <View key={rowIndex} style={styles.row}>
-                    <Text style={styles.rowLabel}>{rowIndex + 1}</Text>
                     <View style={styles.seatsContainer}>{renderSeatRow(seatRow, rowIndex)}</View>
                   </View>
                 ))}

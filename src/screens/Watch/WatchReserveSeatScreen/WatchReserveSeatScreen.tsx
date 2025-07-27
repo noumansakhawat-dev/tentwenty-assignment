@@ -17,6 +17,10 @@ export const WatchReserveSeatScreen: FC<WatchReserveSeatScreenProps> = ({ naviga
   const { height } = useWindowDimensions();
   const theme = useTheme();
 
+  const handleSeatSelection = (selectedSeats: { rowIndex: number; seatNumber: number }[]) => {
+    console.log('Selected seats:', selectedSeats);
+  };
+
   // Sample data that matches the cinema layout in the screenshot
   const seatRows = [
     {
@@ -94,7 +98,7 @@ export const WatchReserveSeatScreen: FC<WatchReserveSeatScreenProps> = ({ naviga
           height: height * 0.5,
           backgroundColor: theme.colors.lightGray1
         }}>
-        <CinemaHall seatRows={seatRows} />
+        <CinemaHall seatRows={seatRows} onSeatSelect={handleSeatSelection} />
       </View>
     </View>
   );
