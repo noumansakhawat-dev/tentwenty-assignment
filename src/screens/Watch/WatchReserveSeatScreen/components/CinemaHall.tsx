@@ -34,6 +34,10 @@ export const CinemaHall: FC<CinemaHallProps> = ({ seatRows }) => {
   const translateX = useSharedValue(0);
   const translateY = useSharedValue(0);
 
+  // Container dimensions for boundary calculation
+  const containerWidth = useSharedValue(0);
+  const containerHeight = useSharedValue(0);
+
   // Find the maximum number of seats in any row
   const maxSeats = Math.max(...seatRows.map((row) => row.seats));
 
@@ -150,7 +154,7 @@ export const CinemaHall: FC<CinemaHallProps> = ({ seatRows }) => {
       fontSize: 12,
       fontWeight: '500',
       color: theme.colors.mutedLavender,
-      marginRight: theme.spacing.xxxs
+      marginRight: theme.spacing.m
     },
     seatsContainer: {
       flexDirection: 'row',
@@ -183,13 +187,28 @@ export const CinemaHall: FC<CinemaHallProps> = ({ seatRows }) => {
   return (
     <View style={styles.container}>
       {/* Cinema Hall with Zoom */}
-      <GestureHandlerRootView style={styles.scrollContainer}>
+      <GestureHandlerRootView
+        style={styles.scrollContainer}
+        onLayout={(event) => {
+          const { width, height } = event.nativeEvent.layout;
+          containerWidth.value = width;
+          containerHeight.value = height + 50;
+        }}>
         <PanGestureHandler
           onGestureEvent={(event) => {
             'worklet';
             if (scale.value > 1) {
-              translateX.value = event.nativeEvent.translationX;
-              translateY.value = event.nativeEvent.translationY;
+              // Calculate the boundaries based on scale and container size
+              const scaledWidth = containerWidth.value * scale.value;
+              const scaledHeight = containerHeight.value * scale.value;
+
+              // Calculate maximum allowed translation to keep content within bounds
+              const maxTranslateX = Math.max(0, (scaledWidth - containerWidth.value) / 2);
+              const maxTranslateY = Math.max(0, (scaledHeight - containerHeight.value) / 2);
+
+              // Clamp translation values to boundaries
+              translateX.value = Math.max(-maxTranslateX, Math.min(maxTranslateX, event.nativeEvent.translationX));
+              translateY.value = Math.max(-maxTranslateY, Math.min(maxTranslateY, event.nativeEvent.translationY));
             }
           }}>
           <Animated.View style={styles.gestureContainer}>
