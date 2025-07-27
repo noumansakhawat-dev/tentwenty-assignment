@@ -1,6 +1,8 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { GestureHandlerRootView, PanGestureHandler, PinchGestureHandler } from 'react-native-gesture-handler';
 import { IconButton } from 'react-native-paper';
+import Animated, { runOnJS, useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated';
 import { SeatColors } from '../utils/seatColors';
 
 import { IconSeat } from '@tentwenty-tech/icons';
@@ -20,6 +22,17 @@ type CinemaHallProps = {
 
 export const CinemaHall: FC<CinemaHallProps> = ({ seatRows }) => {
   const theme = useTheme();
+  const [zoomLevel, setZoomLevel] = useState(1);
+
+  // Zoom limits
+  const MIN_ZOOM = 1;
+  const MAX_ZOOM = 2;
+  const ZOOM_STEP = 0.2;
+
+  // Animated values for pan and zoom
+  const scale = useSharedValue(1);
+  const translateX = useSharedValue(0);
+  const translateY = useSharedValue(0);
 
   // Find the maximum number of seats in any row
   const maxSeats = Math.max(...seatRows.map((row) => row.seats));
@@ -92,10 +105,35 @@ export const CinemaHall: FC<CinemaHallProps> = ({ seatRows }) => {
     return SeatColors.regular;
   };
 
+  const handleZoomIn = () => {
+    const newZoom = Math.min(zoomLevel + ZOOM_STEP, MAX_ZOOM);
+    setZoomLevel(newZoom);
+    scale.value = withSpring(newZoom);
+  };
+
+  const handleZoomOut = () => {
+    const newZoom = Math.max(zoomLevel - ZOOM_STEP, MIN_ZOOM);
+    setZoomLevel(newZoom);
+    scale.value = withSpring(newZoom);
+  };
+
+  // Animated style for pan and zoom
+  const animatedStyle = useAnimatedStyle(() => ({
+    transform: [{ translateX: translateX.value }, { translateY: translateY.value }, { scale: scale.value }]
+  }));
+
   const styles = StyleSheet.create({
     container: {
+      flex: 1,
       paddingHorizontal: theme.spacing.s,
       paddingTop: theme.spacing.l
+    },
+    scrollContainer: {
+      flex: 1
+    },
+    gestureContainer: {
+      justifyContent: 'center',
+      alignItems: 'center'
     },
     hallContainer: {
       justifyContent: 'center'
@@ -122,54 +160,74 @@ export const CinemaHall: FC<CinemaHallProps> = ({ seatRows }) => {
     },
     seatGap: {
       width: theme.spacing.m
+    },
+    zoomButtonsContainer: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'flex-end',
+      paddingTop: theme.spacing.s
+    },
+    zoomButton: {
+      backgroundColor: theme.colors.white,
+      shadowColor: theme.colors.black,
+      shadowOffset: {
+        width: 0,
+        height: 2
+      },
+      shadowOpacity: 0.1,
+      shadowRadius: 8,
+      elevation: 4
     }
   });
 
   return (
     <View style={styles.container}>
-      {/* Cinema Hall */}
-      <View style={styles.hallContainer}>
-        {seatRows.map((seatRow, rowIndex) => (
-          <View key={rowIndex} style={styles.row}>
-            <Text style={styles.rowLabel}>{rowIndex + 1}</Text>
-            <View style={styles.seatsContainer}>{renderSeatRow(seatRow, rowIndex)}</View>
-          </View>
-        ))}
-      </View>
+      {/* Cinema Hall with Zoom */}
+      <GestureHandlerRootView style={styles.scrollContainer}>
+        <PanGestureHandler
+          onGestureEvent={(event) => {
+            'worklet';
+            if (scale.value > 1) {
+              translateX.value = event.nativeEvent.translationX;
+              translateY.value = event.nativeEvent.translationY;
+            }
+          }}>
+          <Animated.View style={styles.gestureContainer}>
+            <PinchGestureHandler
+              onGestureEvent={(event) => {
+                'worklet';
+                const newScale = Math.min(Math.max(event.nativeEvent.scale, MIN_ZOOM), MAX_ZOOM);
+                scale.value = newScale;
+                runOnJS(setZoomLevel)(newScale);
+              }}>
+              <Animated.View style={[styles.hallContainer, animatedStyle]}>
+                {seatRows.map((seatRow, rowIndex) => (
+                  <View key={rowIndex} style={styles.row}>
+                    <Text style={styles.rowLabel}>{rowIndex + 1}</Text>
+                    <View style={styles.seatsContainer}>{renderSeatRow(seatRow, rowIndex)}</View>
+                  </View>
+                ))}
+              </Animated.View>
+            </PinchGestureHandler>
+          </Animated.View>
+        </PanGestureHandler>
+      </GestureHandlerRootView>
 
       {/* Zoom in and out buttons */}
-      <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end' }}>
+      <View style={styles.zoomButtonsContainer}>
         <IconButton
           icon='plus'
-          onPress={() => {}}
+          onPress={handleZoomIn}
           size={24}
-          style={{
-            backgroundColor: theme.colors.white,
-            shadowColor: theme.colors.black,
-            shadowOffset: {
-              width: 0,
-              height: 2
-            },
-            shadowOpacity: 0.1,
-            shadowRadius: 8,
-            elevation: 4
-          }}
+          style={[styles.zoomButton, { opacity: zoomLevel >= MAX_ZOOM ? 0.5 : 1 }]}
+          disabled={zoomLevel >= MAX_ZOOM}
         />
         <IconButton
           icon='minus'
-          onPress={() => {}}
+          onPress={handleZoomOut}
           size={24}
-          style={{
-            backgroundColor: theme.colors.white,
-            shadowColor: theme.colors.black,
-            shadowOffset: {
-              width: 0,
-              height: 2
-            },
-            shadowOpacity: 0.1,
-            shadowRadius: 8,
-            elevation: 4
-          }}
+          style={[styles.zoomButton, { opacity: zoomLevel <= MIN_ZOOM ? 0.5 : 1 }]}
+          disabled={zoomLevel <= MIN_ZOOM}
         />
       </View>
     </View>

@@ -19,7 +19,8 @@ module.exports = function (api) {
             '@tentwenty-tech/icons': './packages/icons/index.tsx'
           }
         }
-      ]
+      ],
+      'react-native-worklets/plugin'
     ]
   };
 };

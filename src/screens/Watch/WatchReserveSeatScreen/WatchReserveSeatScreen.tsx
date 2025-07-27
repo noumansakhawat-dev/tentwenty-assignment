@@ -1,11 +1,12 @@
 import { FC } from 'react';
-import { View } from 'react-native';
+import { useWindowDimensions, View } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import dayjs from 'dayjs';
 import { CinemaHall } from './components';
 import { useStyles } from './WatchReserveSeatScreen.styles';
 
 import { AppHeader } from '~/components';
+import { useTheme } from '~/hooks/useTheme';
 import { WatchStackParamList } from '~/navigation/stack';
 
 type WatchReserveSeatScreenProps = NativeStackScreenProps<WatchStackParamList, 'WatchReserveSeatScreen'>;
@@ -13,13 +14,15 @@ type WatchReserveSeatScreenProps = NativeStackScreenProps<WatchStackParamList, '
 export const WatchReserveSeatScreen: FC<WatchReserveSeatScreenProps> = ({ navigation, route }) => {
   const { movieTitle, date, time, cinema } = route.params;
   const styles = useStyles();
+  const { height } = useWindowDimensions();
+  const theme = useTheme();
 
   // Sample data that matches the cinema layout in the screenshot
   const seatRows = [
     {
       seats: 18,
       isVip: false,
-      selectedSeats: [ 5, 6, 7],
+      selectedSeats: [5, 6, 7],
       unavailableSeats: [1, 3]
     },
     {
@@ -86,7 +89,13 @@ export const WatchReserveSeatScreen: FC<WatchReserveSeatScreenProps> = ({ naviga
         title={movieTitle}
         description={`${dayjs(date).format('MMM D, YYYY')} ${time} | ${cinema}`}
       />
-      <CinemaHall seatRows={seatRows} />
+      <View
+        style={{
+          height: height * 0.5,
+          backgroundColor: theme.colors.lightGray1
+        }}>
+        <CinemaHall seatRows={seatRows} />
+      </View>
     </View>
   );
 };
