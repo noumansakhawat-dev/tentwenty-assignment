@@ -1,7 +1,9 @@
-import { FC } from 'react';
-import { useWindowDimensions, View } from 'react-native';
+import { FC, useState } from 'react';
+import { ScrollView, Text, TouchableOpacity, useWindowDimensions, View } from 'react-native';
+import { Chip } from 'react-native-paper';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import dayjs from 'dayjs';
+import { SeatColors } from './utils/seatColors';
 import { CinemaHall } from './components';
 import { useStyles } from './WatchReserveSeatScreen.styles';
 
@@ -16,9 +18,11 @@ export const WatchReserveSeatScreen: FC<WatchReserveSeatScreenProps> = ({ naviga
   const styles = useStyles();
   const { height } = useWindowDimensions();
   const theme = useTheme();
+  const [selectedSeats, setSelectedSeats] = useState<{ rowIndex: number; seatNumber: number }[]>([]);
 
-  const handleSeatSelection = (selectedSeats: { rowIndex: number; seatNumber: number }[]) => {
-    console.log('Selected seats:', selectedSeats);
+  const handleSeatSelection = (seats: { rowIndex: number; seatNumber: number }[]) => {
+    setSelectedSeats(seats);
+    console.log('Selected seats:', seats);
   };
 
   // Sample data that matches the cinema layout in the screenshot
@@ -85,6 +89,17 @@ export const WatchReserveSeatScreen: FC<WatchReserveSeatScreenProps> = ({ naviga
     }
   ];
 
+  const calculateTotalPrice = () => {
+    let total = 0;
+    selectedSeats.forEach((seat) => {
+      const row = seatRows[seat.rowIndex];
+      total += row.isVip ? 150 : 50;
+    });
+    return total;
+  };
+
+  const totalPrice = calculateTotalPrice();
+
   return (
     <View style={styles.container}>
       <AppHeader
@@ -99,6 +114,53 @@ export const WatchReserveSeatScreen: FC<WatchReserveSeatScreenProps> = ({ naviga
           backgroundColor: theme.colors.lightGray1
         }}>
         <CinemaHall seatRows={seatRows} onSeatSelect={handleSeatSelection} />
+      </View>
+
+      {/* Legend and Payment Section */}
+      <View style={styles.bottomSection}>
+        {/* Legend */}
+        <View style={styles.legendContainer}>
+          <View style={styles.legendRow}>
+            <View style={styles.legendItem}>
+              <View style={[styles.legendIndicator, { backgroundColor: SeatColors.selected }]} />
+              <Text style={styles.legendText}>Selected</Text>
+            </View>
+            <View style={styles.legendItem}>
+              <View style={[styles.legendIndicator, { backgroundColor: SeatColors.notAvailable }]} />
+              <Text style={styles.legendText}>Not available</Text>
+            </View>
+          </View>
+          <View style={styles.legendRow}>
+            <View style={styles.legendItem}>
+              <View style={[styles.legendIndicator, { backgroundColor: SeatColors.vip }]} />
+              <Text style={styles.legendText}>VIP (150$)</Text>
+            </View>
+            <View style={styles.legendItem}>
+              <View style={[styles.legendIndicator, { backgroundColor: SeatColors.regular }]} />
+              <Text style={styles.legendText}>Regular (50 $)</Text>
+            </View>
+          </View>
+        </View>
+
+        {/* Selected Seats Counter */}
+        <ScrollView style={styles.chipContainer} contentContainerStyle={styles.chipContainerContent}>
+          {selectedSeats.map((seat) => (
+            <Chip key={`${seat.rowIndex}-${seat.seatNumber}`} style={styles.seatChip} textStyle={styles.chipText}>
+              {seat.seatNumber} / {seat.rowIndex + 1} row
+            </Chip>
+          ))}
+        </ScrollView>
+
+        {/* Payment Section */}
+        <View style={styles.paymentContainer}>
+          <View style={styles.totalPriceContainer}>
+            <Text style={styles.totalPriceLabel}>Total Price</Text>
+            <Text style={styles.totalPriceValue}>$ {totalPrice}</Text>
+          </View>
+          <TouchableOpacity style={styles.proceedButton}>
+            <Text style={styles.proceedButtonText}>Proceed to pay</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </View>
   );
