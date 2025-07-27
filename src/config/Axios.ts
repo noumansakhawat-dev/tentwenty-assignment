@@ -37,7 +37,7 @@ const useAxios = makeUseAxios({
     headers: {
       'Content-Type': 'application/json',
       Accept: 'application/json',
-      Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkNzdlNTk0ZWM2OGI3MTc0OWRjYmVhNjFkZTcwYjJkOCIsIm5iZiI6MTc1MzUzNzIwMy44MzM5OTk5LCJzdWIiOiI2ODg0ZGFiMzY1ZjA4MDdlNTlkOWFjZWYiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.mRMukSpEsSKoKF6EIKfQmIOBL94RnJXKKIE_AdLD8XE`
+      Authorization: `Bearer ${appConfig.theMovieDbApiKey}`
     }
   })
 });

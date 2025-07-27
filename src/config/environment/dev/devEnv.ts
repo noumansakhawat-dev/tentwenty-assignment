@@ -4,5 +4,6 @@ import type { AppConfig } from '~/config/environment/types';
 export const appConfig: AppConfig = {
   application_id: 'com.theohealth',
   baseURL: 'http://dev.theohealth.com',
-  environment: 'develop'
+  environment: 'develop',
+  theMovieDbApiKey: process.env['THE_MOVIE_DB_API_KEY'] || ''
 };

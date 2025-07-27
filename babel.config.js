@@ -4,7 +4,7 @@ module.exports = function (api) {
     presets: ['module:@react-native/babel-preset'],
     env: {
       production: {
-        plugins: ['react-native-paper/babel', 'react-native-worklets/plugin']
+        plugins: ['react-native-paper/babel', 'react-native-worklets/plugin', 'module:react-native-dotenv']
       }
     },
     plugins: [
@@ -20,7 +20,8 @@ module.exports = function (api) {
           }
         }
       ],
-      'react-native-worklets/plugin'
+      'react-native-worklets/plugin',
+      'module:react-native-dotenv'
     ]
   };
 };

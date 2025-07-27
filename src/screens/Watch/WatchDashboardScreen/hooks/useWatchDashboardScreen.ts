@@ -38,7 +38,7 @@ export const useWatchDashboardScreen = () => {
   }, [data]);
 
   const loadMore = () => {
-    if (data.length === 0 || isMoreLoading || loading) return;
+    if (data?.length === 0 || isMoreLoading || loading) return;
     if (page < totalPages.current) {
       setPage((prev) => prev + 1);
       setIsMoreLoading(true);
