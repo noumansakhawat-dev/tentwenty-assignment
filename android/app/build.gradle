@@ -128,6 +128,18 @@ android {
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
         }
     }
+
+    // Customize APK output filename
+    applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+            if (variant.buildType.name == "release") {
+                def versionName = variant.versionName
+                def versionCode = variant.versionCode
+                def newApkName = "tentwenty-release-v${versionName}${versionCode}.apk"
+                outputFileName = newApkName
+            }
+        }
+    }
 }
 
 dependencies {
