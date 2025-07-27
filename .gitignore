@@ -83,9 +83,7 @@ src/**/*.typegen.ts
 .env*
 
 # Do not ignore .env.*.template files (template environment files)
-!.env.develop.template
-!.env.staging.template
-!.env.prod.template
+!.env.template
 
 # Ruby / CocoaPods
 **/Pods/

@@ -6,6 +6,7 @@ import { configureFonts, MD3LightTheme, PaperProvider } from 'react-native-paper
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { DefaultTheme } from '@react-navigation/native';
 import { AppStatusBar } from './components/AppStatusBar';
+import { loadEnv } from './config/envConfig';
 import { PaperFontConfig } from './config/fonts';
 import { TabNavigator } from './navigation/tabNavigator';
 import { NavigationContainer } from './navigation';
@@ -33,6 +34,7 @@ export const App = () => {
   const [appIsReady, setAppIsReady] = useState(false);
 
   useEffect(() => {
+    loadEnv();
     const prepare = () => {
       setAppIsReady(true);
     };
