@@ -27,6 +27,22 @@ A modern React Native app for discovering upcoming movies, watching trailers, an
 
 ---
 
+## 📁 Project Structure
+
+For a detailed breakdown of the project architecture and file organization, see our [Project Structure Documentation](PROJECT_STRUCTURE.md).
+
+**Quick Overview:**
+```
+src/
+├── components/          # Reusable UI components
+├── screens/            # Screen components (Watch, Dashboard, etc.)
+├── navigation/         # Tab & stack navigation
+├── config/            # API & environment configuration
+└── hooks/             # Custom React hooks
+```
+
+---
+
 ## 🏁 Getting Started
 
 ### 1. Clone the repo
